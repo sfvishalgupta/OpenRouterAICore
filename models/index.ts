@@ -1,1 +1,1 @@
-export * from "./openAIModel";
+export * from './openAIModel';
