@@ -22,7 +22,8 @@ git clone https://github.com/sfvishalgupta/OpenRouterAIExample.git
 cd OpenRouterAIExample
 ```
 
-### 2.  Install dependencies
+### 2. Install dependencies
+
 ```bash
 npm install
 ```
@@ -30,6 +31,7 @@ npm install
 3. Set up environment variables
 
 Create a .env file in the src folder:
+
 ```bash
 OPEN_ROUTER_API_KEY=your_openrouter_api_key
 ```
@@ -74,11 +76,10 @@ npx ts-node src/askQuestionFromVector.ts <index_name> <question>
 ```
 
 🧠 Tech Stack
-	•	Node.js
-	•	TypeScript
-	•	OpenRouter
-	•	PDF-parse for reading PDFs
+• Node.js
+• TypeScript
+• OpenRouter
+• PDF-parse for reading PDFs
 
 📬 License
 MIT — feel free to use and adapt!
-
