@@ -2,6 +2,7 @@ import { BaseRequest, ModelRequest } from '../types';
 import { ENV_VARIABLES } from '../environment';
 export class OpenRouterRequest implements BaseRequest {
   constructor(
+    private readonly modelName: string,
     private readonly question: string,
     private readonly systemPrompt?: string,
     private readonly document?: string,
@@ -52,7 +53,7 @@ export class OpenRouterRequest implements BaseRequest {
         Accept: 'text/event-stream',
       },
       body: {
-        model: ENV_VARIABLES.OPEN_ROUTER_MODEL,
+        model: this.modelName,
         stream: ENV_VARIABLES.STREAMING,
         messages: await this.getMessages(),
       },

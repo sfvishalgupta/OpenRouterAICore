@@ -20,14 +20,14 @@
 import { Document } from '@langchain/core/documents';
 import { EmbeddingsInterface } from '@langchain/core/embeddings';
 import { FakeEmbeddings } from 'langchain/embeddings/fake';
-import { PromptTemplate } from '@langchain/core/prompts';
+// import { PromptTemplate } from '@langchain/core/prompts';
 import { QdrantClient } from '@qdrant/js-client-rest';
 import { QdrantVectorStore } from '@langchain/community/vectorstores/qdrant';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-import { RunnableSequence } from '@langchain/core/runnables';
-import { StringOutputParser } from '@langchain/core/output_parsers';
-
-import { ChatOpenAIModel } from '../models';
+// import { RunnableSequence } from '@langchain/core/runnables';
+// import { StringOutputParser } from '@langchain/core/output_parsers';
+import { AskQuestionViaAPI } from '../services/AIService';
+// import { ChatOpenAIModel } from '../models';
 import { BaseVector } from './';
 import { ENV_VARIABLES } from '../environment';
 import { logger } from '../pino';
@@ -125,19 +125,30 @@ export class QdrantVector implements BaseVector {
   public async makeCallToModel(modelName: string, context: string, query: string):
     Promise<string | AsyncIterable<string>> {
     logger.info(`Length of a context is ${context.length}`);
-    const prompt = PromptTemplate.fromTemplate(
-      `Based on the following context: ${context}, answer the question: ${query}`,
-    );
-    const sequence = RunnableSequence.from([
-      {
-        context: () => `<context>${context}</context>`,
-        question: () => query,
-      },
-      prompt,
-      ChatOpenAIModel(modelName),
-      new StringOutputParser(),
-    ]);
+    // const prompt = PromptTemplate.fromTemplate(
+    //   `Based on the following context: ${context}, answer the question: ${query}`,
+    // );
+    // const sequence = RunnableSequence.from([
+    //   {
+    //     context: () => `<context>${context}</context>`,
+    //     question: () => query,
+    //   },
+    //   prompt,
+    //   ChatOpenAIModel(modelName),
+    //   new StringOutputParser(),
+    // ]);
 
-    return sequence.invoke({});
+    return AskQuestionViaAPI(
+        modelName, query,
+        `Based on the following context: ${context}, answer the question`,
+      )
+
+    // try {
+    //   const response = await sequence.invoke({});
+    //   return response;
+    // } catch (e) {
+    //   logger.info(`Error making call via langchain ${(e as any).message}`);
+      
+    // }
   }
 }

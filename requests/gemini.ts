@@ -2,6 +2,7 @@ import { BaseRequest, ModelRequest } from '../types';
 import { ENV_VARIABLES } from '../environment';
 export class GeminiRequest implements BaseRequest {
   constructor(
+    private readonly modelName: string,
     private readonly question: string,
     private readonly systemPrompt?: string,
     private readonly document?: string,
