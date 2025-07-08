@@ -46,4 +46,20 @@ export const ENV_VARIABLES = {
   JIRA_EMAIL_OUTPUT: process.env.JIRA_EMAIL_OUTPUT ?? '',
   JIRA_API_TOKEN_OUTPUT: process.env.JIRA_API_TOKEN_OUTPUT ?? '',
   JIRA_TICKET_ID: process.env.JIRA_TICKET_ID ?? '',
+
+  DEFAULT_MODEL: 'deepseek/deepseek-chat-v3-0324:free',
+  GITHUB_OWNER: process.env.GITHUB_OWNER ?? '',
+  GITHUB_REPO: process.env.GITHUB_REPO ?? '',
+  GITHUB_TOKEN: process.env.GITHUB_TOKEN ?? '',
+  PROJECT_DOCUMENT_PATH: process.env.PROJECT_DOCUMENT_PATH ?? '',
+  GITHUB_ISSUE_NUMBER: process.env.GITHUB_ISSUE_NUMBER ?? '',
+
+  USE_FOR: process.env.USE_FOR ?? 'GenerateTestCasesReport_API',
 };
+
+export const ERRORS = {
+    ENV_NOT_SET: "ENV_NOT_SET",
+    FILE_NOT_FOUND: "FILE_NOT_FOUND",
+    INVALID_CREDENTIALS: "INVALID_CREDENTIALS",
+    URL_NOT_FOUND: "URL_NOT_FOUND",
+}

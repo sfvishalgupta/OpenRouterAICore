@@ -42,3 +42,12 @@ export interface ConfluencePage {
   body: { storage: { value: string; representation: string } };
   ancestors?: { id: string }[];
 }
+
+export interface PullRequestFile {
+  filename: string;
+  status: string;
+  additions: number;
+  deletions: number;
+  changes: number;
+  [key: string]: any;
+}
