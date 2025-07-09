@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { ConfluenceSearchTool } from '../tools';
 import { logger } from '../pino';
+import { ENV_VARIABLES } from '../environment';
 
 function stripHtmlTags(htmlString: string): string {
     return htmlString
@@ -31,10 +32,13 @@ export async function DownloadFileFromConfluence(folder: string, filePath: strin
     const pages: any[] = await ConfluenceSearchTool().func(filePath);
     let content = '';
     for (const page of pages) {
-        content += page.title + '\n';
-        content += page.body.storage.value;
+        if (!page.title.toLowerCase().startsWith(ENV_VARIABLES.JIRA_PROJECT_KEY.toLocaleLowerCase()+"-")) {
+            // if(page.title == "TDD for Course Management (PLM-2545)"){
+                content += page.title + '\n';
+                content += page.body.storage.value.trim();
+            // }
+        }
     }
     fs.writeFileSync(outputFile, stripHtmlTags(content));
     return outputFile;
 }
-

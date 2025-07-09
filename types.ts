@@ -25,7 +25,7 @@ export interface PostRequest {
 
 export interface BaseRequest {
   getRequest(): Promise<PostRequest>;
-  parseResponse(response: any): string;
+  parseResponse(response: any): string | Promise<string>;
 }
 
 export interface ModelRequest {

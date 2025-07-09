@@ -53,27 +53,20 @@ export const GetJiraTitle = async (): Promise<string> => {
     }
 
     let jiraId: string = GetJiraId();
-
     const jql: string = `project = '${ENV_VARIABLES.JIRA_PROJECT_KEY}' AND (key = ${jiraId} OR parent = ${jiraId})`;
     logger.info(`JQL: ${jql} `);
     try {
         const response: JiraIssue[] = await JiraSearchTool.func(jql);
         const parentIssue: JiraIssue = response.find((issue) => issue.key === jiraId) as JiraIssue;
         const subIssues: JiraIssue[] = response.filter((issue) => issue.key !== jiraId);
-        const placeHolder: string = `
-        Jira Story is below in format of title : description
-        **${parentIssue.key} :- ${parentIssue.fields.summary}** : ${extractParagraphText(parentIssue.fields.description).join('\n')}
 
-        Jira sub story is below in format of title : description
-        ${subIssues
-                .map(
-                    (issue) => `
-        - **${issue.fields.summary}**: ${extractParagraphText(issue.fields.description).join('\n')}
-        `,
-                )
-                .join('\n')}
-    `;
-        return placeHolder;
+        let placeHolder: string = `Jira Story is below in format of title : description` +
+            `**${parentIssue.key} :- ${parentIssue.fields.summary}** : ${extractParagraphText(parentIssue.fields.description).join('\n')}`;
+        if (subIssues.length > 0) {
+            placeHolder += `\n\nJira sub story is below in format of title : description
+            ${subIssues.map((issue) => `- **${issue.fields.summary}**: ${extractParagraphText(issue.fields.description).join('\n')}`).join('\n')}`;
+        }
+        return placeHolder.trim();
     } catch (e) {
         if (typeof e === 'object' && e !== null && 'response' in e) {
             if ((e as any).response?.status) {

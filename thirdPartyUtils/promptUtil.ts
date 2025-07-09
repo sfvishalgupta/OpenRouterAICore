@@ -23,11 +23,13 @@ do not include score in summary and score should be string in format <b>x/10</b>
  * This function is the entry point for the OpenRouterAI example.
  */
 export async function GetUserPrompt(): Promise<string> {
-    logger.info('Reading User Prompt file from:- ' + ENV_VARIABLES.USE_FOR);
-    let filePath = process.cwd() + '/' + ENV_VARIABLES.USE_FOR + '.txt';
-    if (ENV_VARIABLES.USE_FOR.toUpperCase().indexOf('S3') > -1) {
+    const useFor: string = ENV_VARIABLES.USE_FOR.includes(".") ? ENV_VARIABLES.USE_FOR : ENV_VARIABLES.USE_FOR + '.txt';
+    logger.info('Reading User Prompt file from:- ' + useFor);
+    let filePath: string = process.cwd() + '/' + useFor;
+
+    if (useFor.toUpperCase().indexOf('S3') > -1) {
         logger.info('User Prompt from: S3');
-        filePath = await downloadFileFromS3('tmp', ENV_VARIABLES.USE_FOR + '.txt');
+        filePath = await downloadFileFromS3('tmp', useFor);
     } else {
         logger.info('User Prompt from: local');
     }
@@ -40,9 +42,9 @@ export async function GetUserPrompt(): Promise<string> {
 }
 
 export async function GetProjectDocument(projectDocumentPath?: string): Promise<string> {
-    logger.info(`Loading Project document from ${projectDocumentPath}`);
     let content: string = '';
     projectDocumentPath = projectDocumentPath ?? ENV_VARIABLES.PROJECT_DOCUMENT_PATH;
+    logger.info(`Loading Project document from ${projectDocumentPath}`);
     const listOfFiles: string[] = projectDocumentPath.split(',');
     for (let filepath of listOfFiles) {
         const trimmedFilepath = filepath.trim();

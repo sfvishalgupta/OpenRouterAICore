@@ -47,7 +47,7 @@ export const ENV_VARIABLES = {
   JIRA_API_TOKEN_OUTPUT: process.env.JIRA_API_TOKEN_OUTPUT ?? '',
   JIRA_TICKET_ID: process.env.JIRA_TICKET_ID ?? '',
 
-  DEFAULT_MODEL: 'deepseek/deepseek-chat-v3-0324:free',
+  DEFAULT_MODEL: process.env.OPEN_ROUTER_MODEL ?? 'deepseek/deepseek-chat-v3-0324:free',
   GITHUB_OWNER: process.env.GITHUB_OWNER ?? '',
   GITHUB_REPO: process.env.GITHUB_REPO ?? '',
   GITHUB_TOKEN: process.env.GITHUB_TOKEN ?? '',
