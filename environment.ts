@@ -15,7 +15,6 @@ export const ENV_VARIABLES = {
   OPEN_ROUTER_API_KEY: process.env.OPEN_ROUTER_API_KEY ?? '',
   OPEN_ROUTER_API_URL: process.env.OPEN_ROUTER_API_URL ?? '',
   OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? '',
-  STREAMING: process.env.STREAMING === 'true',
 
   VECTOR_STORE_TYPE: process.env.VECTOR_STORE_TYPE ?? 'memory',
   VECTOR_STORE_URL: process.env.VECTOR_STORE_URL ?? 'http://localhost:6333',
@@ -42,12 +41,8 @@ export const ENV_VARIABLES = {
   PRESIDIO_ANALYZE_URL: process.env.PRESIDIO_ANALYZE_URL ?? '',
   PRESIDIO_ANONYMIZE_URL: process.env.PRESIDIO_ANONYMIZE_URL ?? '',
 
-  JIRA_URL_OUTPUT: process.env.JIRA_URL_OUTPUT ?? '',
-  JIRA_EMAIL_OUTPUT: process.env.JIRA_EMAIL_OUTPUT ?? '',
-  JIRA_API_TOKEN_OUTPUT: process.env.JIRA_API_TOKEN_OUTPUT ?? '',
   JIRA_TICKET_ID: process.env.JIRA_TICKET_ID ?? '',
 
-  DEFAULT_MODEL: process.env.OPEN_ROUTER_MODEL ?? 'deepseek/deepseek-chat-v3-0324:free',
   GITHUB_OWNER: process.env.GITHUB_OWNER ?? '',
   GITHUB_REPO: process.env.GITHUB_REPO ?? '',
   GITHUB_TOKEN: process.env.GITHUB_TOKEN ?? '',
@@ -58,8 +53,8 @@ export const ENV_VARIABLES = {
 };
 
 export const ERRORS = {
-    ENV_NOT_SET: "ENV_NOT_SET",
-    FILE_NOT_FOUND: "FILE_NOT_FOUND",
-    INVALID_CREDENTIALS: "INVALID_CREDENTIALS",
-    URL_NOT_FOUND: "URL_NOT_FOUND",
+  ENV_NOT_SET: "ENV_NOT_SET",
+  FILE_NOT_FOUND: "FILE_NOT_FOUND",
+  INVALID_CREDENTIALS: "INVALID_CREDENTIALS",
+  URL_NOT_FOUND: "URL_NOT_FOUND",
 }

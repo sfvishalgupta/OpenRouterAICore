@@ -61,7 +61,7 @@ export class GeminiRequest implements BaseRequest {
         'X-Title': 'my-test-app', // optional but recommended
       },
       body: { contents: await this.getMessages() },
-      responseType: ENV_VARIABLES.STREAMING ? 'stream' : 'json',
+      responseType: 'json',
     };
   }
 }

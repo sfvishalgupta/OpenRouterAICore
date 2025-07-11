@@ -54,10 +54,10 @@ export class OpenRouterRequest implements BaseRequest {
       },
       body: {
         model: this.modelName,
-        stream: ENV_VARIABLES.STREAMING,
+        stream: false,
         messages: await this.getMessages(),
       },
-      responseType: ENV_VARIABLES.STREAMING ? 'stream' : 'json',
+      responseType: 'json',
     };
   }
 }

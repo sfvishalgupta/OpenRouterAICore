@@ -7,21 +7,18 @@ import { ConfluencePage } from '../types'
 class Confluence {
     private readonly client: ConfluenceClient;
     constructor(
+        private readonly host: string,
+        private readonly email: string,
+        private readonly apiToken: string,
         private readonly spaceKey: string,
         private readonly ticketId: string
     ) {
-        if (
-            ENV_VARIABLES.JIRA_URL_OUTPUT.trim() == "" ||
-            ENV_VARIABLES.JIRA_EMAIL_OUTPUT.trim() == "" ||
-            ENV_VARIABLES.JIRA_API_TOKEN_OUTPUT.trim() == "") {
-            throw new Error("Confluence Output details not set.");
-        }
         this.client = new ConfluenceClient({
-            host: ENV_VARIABLES.JIRA_URL_OUTPUT,
+            host: this.host,
             authentication: {
                 basic: {
-                    email: ENV_VARIABLES.JIRA_EMAIL_OUTPUT,
-                    apiToken: ENV_VARIABLES.JIRA_API_TOKEN_OUTPUT,
+                    email: this.email,
+                    apiToken: this.apiToken,
                 },
             },
         });
@@ -96,11 +93,17 @@ class Confluence {
     }
 }
 
-export const ConfluenceCreatePageTool = (spaceKey: string, ticketId: string) =>
+export const ConfluenceCreatePageTool = (
+    host: string, email: string, apiToken: string,
+    spaceKey: string, ticketId: string
+) =>
     new DynamicTool({
         name: 'confluence-create-page-tool',
         description: 'Create page in Confluence',
         func: async (content) => new Confluence(
+            host,
+            email,
+            apiToken,
             spaceKey,
             ticketId
         ).createPage(content)
